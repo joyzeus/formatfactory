@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="fileTypeIconArray">
+        <item>@drawable/video</item>
+        <item>@drawable/music</item>
+        <item>@drawable/picture</item>
+        <item>@drawable/zip</item>
+        <item>@drawable/apk</item>
+        <item>@drawable/doc</item>
+        <item>@drawable/other</item>
+    </integer-array>
+</resources>
