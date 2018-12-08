@@ -10,6 +10,7 @@ import com.jay.formatfactory.bean.ImageBean;
 import com.jay.formatfactory.bean.VideoBean;
 import com.jay.formatfactory.util.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,6 +204,10 @@ public class FileManager {
         if (cursor != null){
             while(cursor.moveToNext()){
                 String data = cursor.getString(0);
+                File file = new File(data);
+                if (!file.exists()){
+                    continue;
+                }
                 int size = cursor.getInt(1);
                 int addTime = cursor.getInt(2);
                 int modifyTime = cursor.getInt(3);

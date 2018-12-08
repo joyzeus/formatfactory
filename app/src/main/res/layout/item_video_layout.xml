@@ -13,18 +13,21 @@
             android:id="@+id/item_video_imageview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
             android:layout_weight="1" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:padding="5dp">
+            android:paddingLeft="10dp">
 
             <TextView
                 android:id="@+id/item_video_titleview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
