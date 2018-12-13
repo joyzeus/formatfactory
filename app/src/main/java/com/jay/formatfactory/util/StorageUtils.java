@@ -11,20 +11,20 @@ public class StorageUtils {
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(externalStorageDirectory.getPath());
         long totalBytes = stat.getTotalBytes();
-        return FileSizeUtils.formatAutoUnit(totalBytes, FileSizeUtils.Unit.UNIT_BYTE);
+        return FileUtils.formatAutoUnit(totalBytes, FileUtils.Unit.UNIT_BYTE);
     }
 
     public static String getExternalStorageAvailableSize() {
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(externalStorageDirectory.getPath());
         long availableBytes = stat.getAvailableBytes();
-        return FileSizeUtils.formatAutoUnit(availableBytes, FileSizeUtils.Unit.UNIT_BYTE);
+        return FileUtils.formatAutoUnit(availableBytes, FileUtils.Unit.UNIT_BYTE);
     }
 
     public static String getExternalStorageFreeSize() {
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(externalStorageDirectory.getPath());
         long freeBytes = stat.getFreeBytes();
-        return FileSizeUtils.formatAutoUnit(freeBytes, FileSizeUtils.Unit.UNIT_BYTE);
+        return FileUtils.formatAutoUnit(freeBytes, FileUtils.Unit.UNIT_BYTE);
     }
 }

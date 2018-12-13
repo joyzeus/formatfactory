@@ -13,23 +13,30 @@ import android.widget.TextView;
 
 import com.jay.formatfactory.R;
 import com.jay.formatfactory.ui.activity.FileExplorerActivity;
+import com.jay.formatfactory.ui.interf.OnItemClickListener;
+
+import java.nio.file.attribute.PosixFileAttributes;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder> implements View.OnClickListener {
 
-    private  Context context;
+    private Context context;
     private String[] fileTypeArray;
     private int[] fileTypeIconArray;
+    private OnItemClickListener mOnItemClickListener;
 
     public HomeAdapter(@NonNull Context context) {
         this.context = context;
         fileTypeArray = context.getResources().getStringArray(R.array.fileTypeArray);
-//        fileTypeIconArray = context.getResources().getIntArray();
         fileTypeIconArray = new int[fileTypeArray.length];
         TypedArray typedArray = context.getResources().obtainTypedArray(R.array.fileTypeIconArray);
         for (int i = 0; i < fileTypeArray.length; i++) {
-            fileTypeIconArray[i] = typedArray.getResourceId(i,0);
+            fileTypeIconArray[i] = typedArray.getResourceId(i, 0);
         }
         typedArray.recycle();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -54,15 +61,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder> implem
     @Override
     public void onClick(View v) {
         int tag = (int) v.getTag();
-        switch (tag){
-            case 0:
-                Intent intent = new Intent(context, FileExplorerActivity.class);
-                context.startActivity(intent);
-                break;
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(tag, null);
         }
     }
 
-    public class Holder extends RecyclerView.ViewHolder{
+    public class Holder extends RecyclerView.ViewHolder {
 
         ImageView iconImageView;
         TextView typeNameTextview;

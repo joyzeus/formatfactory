@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jay.formatfactory.FileManager;
+import com.jay.formatfactory.media.FileManager;
 import com.jay.formatfactory.R;
 import com.jay.formatfactory.bean.VideoBean;
 import com.jay.formatfactory.ui.interf.OnItemClickListener;

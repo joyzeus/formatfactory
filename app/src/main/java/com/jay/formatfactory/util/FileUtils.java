@@ -1,8 +1,14 @@
 package com.jay.formatfactory.util;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.text.DecimalFormat;
 
-public class FileSizeUtils {
+public class FileUtils {
 
     private static final int SIZE = 1024;
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");

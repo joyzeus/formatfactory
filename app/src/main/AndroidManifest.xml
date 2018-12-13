@@ -28,6 +28,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+        <activity android:name=".ui.activity.MusicListActivity" />
+
+
+
 
     </application>
 

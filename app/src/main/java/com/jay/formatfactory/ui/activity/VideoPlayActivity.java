@@ -14,7 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.jay.formatfactory.R;
-import com.jay.formatfactory.util.SharedPreferenceUtil;
+import com.jay.formatfactory.util.Logger;
 
 import java.io.IOException;
 
@@ -40,6 +40,7 @@ public class VideoPlayActivity extends AppCompatActivity implements SurfaceHolde
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
+        Logger.d("----------- onCreate ----------");
 
         Intent intent = getIntent();
         path = intent.getStringExtra(kEY_FILEPATH);
@@ -75,6 +76,7 @@ public class VideoPlayActivity extends AppCompatActivity implements SurfaceHolde
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        Logger.d("----------- onConfigurationChanged ----------");
         setContentView(R.layout.activity_video_player);
 
         surfaceView = findViewById(R.id.surfaceview);
@@ -84,12 +86,14 @@ public class VideoPlayActivity extends AppCompatActivity implements SurfaceHolde
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        mediaPlayer.setDisplay(holder);
+        Logger.d("----------- surfaceCreated ----------");
+//        mediaPlayer.setDisplay(holder);
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        mediaPlayer.setDisplay(holder);
+        Logger.d("----------- surfaceChanged ----------");
+//        mediaPlayer.setDisplay(holder);
     }
 
     @Override
@@ -100,19 +104,23 @@ public class VideoPlayActivity extends AppCompatActivity implements SurfaceHolde
     @Override
     protected void onResume() {
         super.onResume();
-        resume();
+//        resume();
+        Logger.d("----------- onResume ----------");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        pause();
+//        pause();
+        Logger.d("----------- onPause ----------");
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stop();
+//        stop();
+        Logger.d("----------- onDestroy ----------");
     }
 
     public void resume() {

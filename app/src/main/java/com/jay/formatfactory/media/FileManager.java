@@ -1,4 +1,4 @@
-package com.jay.formatfactory;
+package com.jay.formatfactory.media;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -18,73 +18,6 @@ public class FileManager {
 
     private static final String TAG = "FileManager";
 
-    public interface FileColumns extends MediaStore.MediaColumns {
-        /**
-         * The MTP storage ID of the file
-         * <P>Type: INTEGER</P>
-         * @hide
-         */
-        public static final String STORAGE_ID = "storage_id";
-
-        /**
-         * The MTP format code of the file
-         * <P>Type: INTEGER</P>
-         * @hide
-         */
-        public static final String FORMAT = "format";
-
-        /**
-         * The index of the parent directory of the file
-         * <P>Type: INTEGER</P>
-         */
-        public static final String PARENT = "parent";
-
-        /**
-         * The MIME type of the file
-         * <P>Type: TEXT</P>
-         */
-        public static final String MIME_TYPE = "mime_type";
-
-        /**
-         * The title of the content
-         * <P>Type: TEXT</P>
-         */
-        public static final String TITLE = "title";
-
-        /**
-         * The media type (audio, video, image or playlist)
-         * of the file, or 0 for not a media file
-         * <P>Type: TEXT</P>
-         */
-        public static final String MEDIA_TYPE = "media_type";
-
-        /**
-         * Constant for the {@link #MEDIA_TYPE} column indicating that file
-         * is not an audio, image, video or playlist file.
-         */
-        public static final int MEDIA_TYPE_NONE = 0;
-
-        /**
-         * Constant for the {@link #MEDIA_TYPE} column indicating that file is an image file.
-         */
-        public static final int MEDIA_TYPE_IMAGE = 1;
-
-        /**
-         * Constant for the {@link #MEDIA_TYPE} column indicating that file is an audio file.
-         */
-        public static final int MEDIA_TYPE_AUDIO = 2;
-
-        /**
-         * Constant for the {@link #MEDIA_TYPE} column indicating that file is a video file.
-         */
-        public static final int MEDIA_TYPE_VIDEO = 3;
-
-        /**
-         * Constant for the {@link #MEDIA_TYPE} column indicating that file is a playlist file.
-         */
-        public static final int MEDIA_TYPE_PLAYLIST = 4;
-    }
-
     private static final String[] IMAGE_QUERY_PROJECT = {
             MediaStore.Images.Media.DATA,
             MediaStore.Images.Media.SIZE,
@@ -99,7 +32,7 @@ public class FileManager {
             MediaStore.Images.Media.BUCKET_ID,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
             MediaStore.Images.Media.WIDTH,
-            MediaStore.Images.Media.HEIGHT,
+            MediaStore.Images.Media.HEIGHT
     };
 
     private static final String[] AUDIO_QUERY_PROJECT = {
@@ -114,6 +47,12 @@ public class FileManager {
             MediaStore.Audio.Media.IS_ALARM,
             MediaStore.Audio.Media.IS_NOTIFICATION,
             MediaStore.Audio.Media.IS_PODCAST,
+
+            MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.ALBUM_ID,
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.ARTIST_ID,
+            MediaStore.Video.Media.DURATION
     };
 
     private static final String[] VIDEO_QUERY_PROJECT = {
@@ -187,9 +126,15 @@ public class FileManager {
                 int isNotification = cursor.getInt(9);
                 int isPodcast = cursor.getInt(10);
 
+                String album = cursor.getString(11);
+                int albumId = cursor.getInt(12);
+                String artist = cursor.getString(13);
+                int artistId = cursor.getInt(14);
+                int duration = cursor.getInt(15);
+
+
                 AudioBean audioBean = new AudioBean(path, size, addDate, modifyDate, mimeType, title,
-                        isRingtone, isMusic, isAlarm, isNotification, isPodcast);
-                Logger.d(audioBean.toString());
+                        isRingtone, isMusic, isAlarm, isNotification, isPodcast, album, albumId, artist, artistId, duration);
                 audioList.add(audioBean);
             }
             cursor.close();
