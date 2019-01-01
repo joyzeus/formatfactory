@@ -14,14 +14,14 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract int getLayoutId();
 
-    public abstract void initView(View view);
+    public abstract void initView();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), null);
-        ButterKnife.bind(view);
-        initView(view);
+        ButterKnife.bind(this, view);
+        initView();
         return view;
     }
 }

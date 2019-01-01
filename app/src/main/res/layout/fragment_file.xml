@@ -7,9 +7,17 @@
         android:id="@+id/file_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarSize="@dimen/scrollbarWidth"
         android:scrollbarThumbVertical="@drawable/scrollbar_indicator"
         android:scrollbarTrackVertical="@drawable/scrollbar_background"
-        android:scrollbarSize="@dimen/scrollbarWidth"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/strNoFile"
+        android:visibility="gone"/>
 
 </RelativeLayout>

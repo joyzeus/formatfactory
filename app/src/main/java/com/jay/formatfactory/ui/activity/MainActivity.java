@@ -1,6 +1,7 @@
 package com.jay.formatfactory.ui.activity;
 
 import android.Manifest;
+import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -23,11 +24,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.jay.formatfactory.R;
-import com.jay.formatfactory.media.FileManager;
 import com.jay.formatfactory.ui.adapter.HomeAdapter;
 import com.jay.formatfactory.ui.fragment.FileFragment;
+import com.jay.formatfactory.ui.fragment.MusicListFragment;
+import com.jay.formatfactory.ui.fragment.PictureListFragment;
+import com.jay.formatfactory.ui.fragment.VideoListFragment;
 import com.jay.formatfactory.ui.interf.OnItemClickListener;
-import com.jay.formatfactory.util.Logger;
 
 import java.io.File;
 
@@ -52,6 +54,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void initViews() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.strPhone);
         setSupportActionBar(mToolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -71,6 +74,7 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_phone);
 
         requestRuntimePermission(STROGAE_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
@@ -79,7 +83,7 @@ public class MainActivity extends BaseActivity
         mRecyclerView.setAdapter(homeAdapter);
         homeAdapter.setOnItemClickListener(this);
 
-        showEternalStorage();
+        showExternalStorage();
     }
 
     @Override
@@ -121,12 +125,13 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_phone) {
-            showEternalStorage();
+            showExternalStorage();
         } else if (id == R.id.nav_gallery) {
-
+            showPictureFragment();
         } else if (id == R.id.nav_audio) {
-
+            showAudioFragment();
         } else if (id == R.id.nav_video) {
+            showVideoFragment();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -149,13 +154,14 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    private void showEternalStorage(){
+    private void showExternalStorage() {
         mToolbar.setTitle(R.string.strPhone);
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             File externalStorageDirectory = Environment.getExternalStorageDirectory();
             FileFragment fileFragment = FileFragment.getInstance(externalStorageDirectory);
-            FragmentManager supportFragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = supportFragmentManager.beginTransaction();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.fragment_container, fileFragment, "file");
             transaction.commit();
         } else {
@@ -163,12 +169,31 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    private void showPictureFragment(){
-
+    private void showPictureFragment() {
+        mToolbar.setTitle(R.string.strPicture);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment pictureListFragment = PictureListFragment.getInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, pictureListFragment, "picture");
+        transaction.commit();
     }
 
-    private void showAudioFragment(){
+    private void showAudioFragment() {
+        mToolbar.setTitle(R.string.strAudio);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment audioListFragment = MusicListFragment.getInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, audioListFragment, "audio");
+        transaction.commit();
+    }
 
+    private void showVideoFragment() {
+        mToolbar.setTitle(R.string.strVideo);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment videoListFragment = VideoListFragment.getInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, videoListFragment, "video");
+        transaction.commit();
     }
 
     @Override
@@ -176,7 +201,7 @@ public class MainActivity extends BaseActivity
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FileFragment fileFragment = (FileFragment) fragmentManager.findFragmentByTag("file");
-            if (fileFragment != null && fileFragment.onBackPress()){
+            if (fileFragment != null && fileFragment.onBackPress()) {
                 return true;
             }
         }

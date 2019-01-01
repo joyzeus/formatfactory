@@ -11,4 +11,5 @@
     <string name="strPicture">图片</string>
     <string name="strAudio">音频</string>
     <string name="strVideo">视频</string>
+    <string name="strNoFile">无文件</string>
 </resources>

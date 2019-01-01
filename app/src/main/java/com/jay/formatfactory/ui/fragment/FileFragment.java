@@ -28,6 +28,8 @@ public class FileFragment extends BaseFragment implements OnItemClickListener<Fi
 
     private static final String KEY_PARENT_PATH = "parent_path";
 
+    @BindView(R.id.empty_view)
+    View mEmptyView;
     @BindView(R.id.file_recyclerview)
     RecyclerView mFileRecyclerView;
 
@@ -41,8 +43,8 @@ public class FileFragment extends BaseFragment implements OnItemClickListener<Fi
     }
 
     @Override
-    public void initView(View view) {
-        mFileRecyclerView = view.findViewById(R.id.file_recyclerview);
+    public void initView() {
+
         mFileRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mFileAdapter = new FileAdapter(null);
         mFileAdapter.setOnItemClickListener(this);
@@ -105,6 +107,11 @@ public class FileFragment extends BaseFragment implements OnItemClickListener<Fi
 
                     @Override
                     public void onNext(List<File> files) {
+                        if(files == null || files.size() == 0){
+                            showEmpty();
+                        }else {
+                            hideEmpty();
+                        }
                         mFileAdapter.setFileList(files);
                         mFileAdapter.notifyDataSetChanged();
                     }
@@ -119,6 +126,18 @@ public class FileFragment extends BaseFragment implements OnItemClickListener<Fi
 
                     }
                 });
+    }
+
+    private void hideEmpty(){
+        if (mEmptyView != null && mEmptyView.getVisibility() != View.GONE){
+            mEmptyView.setVisibility(View.GONE);
+        }
+    }
+
+    private void showEmpty() {
+        if (mEmptyView != null && mEmptyView.getVisibility() != View.VISIBLE){
+            mEmptyView.setVisibility(View.VISIBLE);
+        }
     }
 
     public static FileFragment getInstance(File parentPath) {
